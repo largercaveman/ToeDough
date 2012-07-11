@@ -1,0 +1,16 @@
+common: &common
+  adapter: postgresql
+  username: toedough
+  password: toedough
+
+development:
+  <<: *common
+  database: toedough_development
+
+test:
+  <<: *common
+  database: toedough_test
+
+production:
+  <<: *common
+  database: toedough_production
