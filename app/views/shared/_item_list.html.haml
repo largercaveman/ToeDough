@@ -1,0 +1,85 @@
+- for item in [ { title: "To Do", items: @items[:todo] }, { title: "Doing", items: @items[:doing] }, { title: "Done" , items: @items[:done] } ]
+  .status_box
+    %h3= item[:title]
+    - if !item[:items].empty?
+      %ul.root_item
+        - for i in item[:items]
+          %li.item
+            .title= link_to i.title, item_path(i)
+            .buttons
+              Mark as: 
+              - if !i.todo?
+                = link_to( "To Do",                   |
+                    item_path(i, status: Item.todo),  |
+                    method: :put )                    |
+
+              - if !i.doing?
+                = link_to( "Doing",                   |
+                    item_path(i, status: Item.doing), |
+                    method: :put )                    |
+
+              - if !i.done?
+                = link_to( "Done" ,                   |
+                    item_path(i, status: Item.done),  | 
+                    method: :put )                    |
+
+            .edit
+              =link_to "Edit", edit_item_path(i)
+              =link_to "Delete", i, method: :delete,                             |
+                data: { confirm: "Are you sure you want to delete \"#{i.title}\"?" } |
+
+            - i_subs = i.subitems
+            - if !i_subs.empty?
+              %ul.subitem
+                - for j in i_subs
+                  %li.item
+                    .title= link_to j.title, item_path(j)
+                    .buttons
+                      Mark As:
+                      - if !j.todo?
+                        = link_to( "To Do",                   |
+                            item_path(j, status: Item.todo),  |
+                            method: :put )                    |
+
+                      - if !j.doing?
+                        = link_to( "Doing",                   |
+                            item_path(j, status: Item.doing), |
+                            method: :put )                    |
+
+                      - if !i.done?
+                        = link_to( "Done" ,                   |
+                            item_path(j, status: Item.done),  | 
+                            method: :put )                    |
+
+                    .edit
+                      =link_to "Edit", edit_item_path(j)
+                      =link_to "Delete", j, method: :delete,                             |
+                        data: { confirm: "Are you sure you want to delete \"#{j.title}\"?" } |
+                    - j_subs = j.subitems
+                    - if !j_subs.empty?
+                      %ul.subitem
+                        - for k in j_subs
+                          %li.item
+                            .title= link_to k.title, item_path(k)
+                            .buttons
+                              Mark as:
+                              - if !k.todo?
+                                = link_to( "To Do",                   |
+                                    item_path(k, status: Item.todo),  |
+                                    method: :put )                    |
+
+                              - if !k.doing?
+                                = link_to( "Doing",                   |
+                                    item_path(k, status: Item.doing), |
+                                    method: :put )                    |
+
+                              - if !k.done?
+                                = link_to( "Done" ,                   |
+                                    item_path(k, status: Item.done),  | 
+                                    method: :put )                    |
+                            .edit
+                              =link_to "Edit", edit_item_path(k)
+                              =link_to "Delete", k, method: :delete,                             |
+                                data: { confirm: "Are you sure you want to delete \"#{k.title}\"?" } |
+    - else
+      .empty_item_list No Items!

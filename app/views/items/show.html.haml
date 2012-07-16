@@ -1,0 +1,38 @@
+- title @item.title
+= "Status: #{@item.status_text}"
+
+.edit
+  =link_to "Edit", edit_item_path(@item)
+  =link_to "Delete", @item, method: :delete,                             |
+    data: { confirm: "Are you sure you want to delete \"#{@item.title}\"?" } |
+
+.item_nav
+  =link_to "View todos from this root", item_items_path(@item)
+  =link_to "Add todo to this root", new_item_item_path(@item)
+
+.users
+  %h4 Users
+  - i_users = @item.users
+  - if !i_users.empty?
+    - for u in i_users
+      %ul.users
+        %li= u.name
+
+.description
+  %h4 Description
+  .content
+    - if !@item.content.blank?
+      %pre=@item.content
+    - else
+      No Description
+
+.comments
+  %h4 Comments
+  - i_comments = @item.comments
+  - if !i_comments.empty?
+    %ul.comments
+      - for c in i_comments 
+        %li.comment
+          c.content
+  - else
+    No Comments

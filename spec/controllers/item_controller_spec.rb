@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe "Users" do
+describe TodoController do
 
 end

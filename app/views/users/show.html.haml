@@ -1,0 +1,10 @@
+- provide(:title, "Profile for #{@user.name}")
+
+.user_info
+  .user_name
+    =@user.name
+  .user_email
+    =@user.email
+
+
+=render 'shared/item_list'

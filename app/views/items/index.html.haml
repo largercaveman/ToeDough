@@ -1,0 +1,8 @@
+- title ""
+
+- if params[:item_id].nil?
+  = link_to "Make new #{Item.public_name}", new_item_path
+- else
+  = link_to "Make new #{Item.public_name} under \"THIS ROOT ITEM\"", new_item_item_path(params[:item_id])
+
+=render 'shared/item_list'

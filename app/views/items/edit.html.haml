@@ -1,0 +1,25 @@
+- if !@item[:id].nil?
+  - title "Editing #{@item.title}"
+- else
+  - title "New Item"
+
+=render 'shared/error_messages'
+
+= form_for @item, :html => {:class=> "nice"} do |a|
+  - if !params[:user_id].nil?
+    =hidden_field_tag 'receiving_user_id', params[:user_id]
+  - if !params[:item_id].nil?
+    =hidden_field_tag 'master_item_id', params[:item_id]
+  %div
+    =a.label :title
+    =a.text_field :title
+  %div
+    =a.label :content
+    =a.text_area :content
+  %div
+    =a.submit
+
+- if !@item[:id].nil?
+  =link_to "Delete Item", @item, method: :delete,                        |
+    data: { confirm: "Are you sure you want to delete #{@item.title}?" } |
+

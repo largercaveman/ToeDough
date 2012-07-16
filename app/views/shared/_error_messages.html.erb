@@ -1,0 +1,12 @@
+<% if @item.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      The todo form contains <%= pluralize(@user.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% @item.errors.full_messages.each do |msg| %>
+      <li>* <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

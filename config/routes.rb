@@ -1,9 +1,22 @@
 ToeDough::Application.routes.draw do
   devise_for :users
 
-  root to: 'users#index'
+  devise_scope :user do
+    get "login", :to => "devise/sessions#new"
+    get "logout", :to => "devise/sessions#destroy", :as => "logout"
+    get "signup", :to => "devise/registrations#new"
+  end
 
-  resources :users
+  root to: 'items#index'
+
+  resources :users do
+    resources :items
+  end
+
+  resources :items, :path => "todos" do
+    
+    resources :items, :path => "todos"
+  end
 
   ActiveAdmin.routes(self)
 
